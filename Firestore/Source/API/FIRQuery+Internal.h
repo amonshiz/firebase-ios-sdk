@@ -21,6 +21,8 @@
 #include "Firestore/core/src/api/api_fwd.h"
 #include "Firestore/core/src/core/core_fwd.h"
 
+@class FIRFilter;
+
 namespace api = firebase::firestore::api;
 namespace core = firebase::firestore::core;
 
@@ -41,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (const core::Query &)query;
 
 - (const api::Query &)apiQuery;
+
+- (FIRQuery *)queryWhereFilter:(FIRFilter *)filter;
 
 @end
 

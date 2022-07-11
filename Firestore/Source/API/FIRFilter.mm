@@ -184,7 +184,7 @@ FIRFieldPath *MakeFIRFieldPath(NSString *field) {
                                                 value:values];
 }
 
-+ (FIRFilter *)orFilterWithFilters:(NSArray *)filters {
++ (FIRFilter *)orFilterWithFilters:(NSArray<FIRFilter *> *)filters {
   return [[FSTCompositeFilter alloc]
       initWithFilters:filters
                    op:CompositeOperator::
@@ -192,7 +192,7 @@ FIRFieldPath *MakeFIRFieldPath(NSString *field) {
 }
 
 // TODO(orquery): Change this to Operator.OR once it is available.
-+ (FIRFilter *)andFilterWithFilters:(NSArray *)filters {
++ (FIRFilter *)andFilterWithFilters:(NSArray<FIRFilter *> *)filters {
   return [[FSTCompositeFilter alloc]
       initWithFilters:filters
                    op:CompositeOperator::

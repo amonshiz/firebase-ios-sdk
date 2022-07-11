@@ -27,6 +27,7 @@
 #import "Firestore/Example/Tests/Util/FSTHelpers.h"
 #import "Firestore/Example/Tests/Util/FSTIntegrationTestCase.h"
 
+#import "Firestore/Source/API/FIRFilter+Internal.h"
 #include "Firestore/core/test/unit/testutil/app_testing.h"
 
 using firebase::firestore::testutil::AppForUnitTesting;
@@ -600,6 +601,32 @@ using firebase::firestore::testutil::OptionsForUnitTesting;
       [[self.db collectionGroupWithID:@"collection"] queryWhereFieldPath:[FIRFieldPath documentID]
                                                                       in:@[ @"foo" ]],
       reason);
+}
+
+- (void)testInvalidQueryFilters {
+  FIRCollectionReference *collection = [self collectionRef];
+  NSString *reason = @"All where filters with an inequality (notEqualTo, notIn, lessThan, "
+                      "lessThanOrEqualTo, greaterThan, or greaterThanOrEqualTo) "
+                      "must be on the same field. But you have filters on 'c' and 'r'";
+  NSArray<FIRFilter *> *array1 = @[
+    [FIRFilter andFilterWithFilters: @[
+      [FIRFilter filterWhereField:@"a" isEqualTo:@"b"],
+      [FIRFilter filterWhereField:@"c" in:@[@"d", @"e"]]]],
+    [FIRFilter andFilterWithFilters: @[
+      [FIRFilter filterWhereField:@"e" isEqualTo:@"f"],
+      [FIRFilter filterWhereField:@"g" isEqualTo:@"h"]]]
+  ];
+  NSArray<FIRFilter *> *array2 = @[
+    [FIRFilter andFilterWithFilters: @[
+      [FIRFilter filterWhereField:@"i" isEqualTo:@"j"],
+      [FIRFilter filterWhereField:@"l" notIn:@[@"m", @"n"]]]],
+    [FIRFilter andFilterWithFilters: @[
+      [FIRFilter filterWhereField:@"o" isEqualTo:@"p"],
+      [FIRFilter filterWhereField:@"q" isEqualTo:@"r"]]]
+  ];
+  FSTAssertThrows([[collection queryWhereFilter: [FIRFilter orFilterWithFilters: array1]]
+                      queryWhereFilter: [FIRFilter orFilterWithFilters: array2]], reason);
+
 }
 
 - (void)testQueryInequalityFieldMustMatchFirstOrderByField {

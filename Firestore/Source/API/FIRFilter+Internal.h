@@ -94,9 +94,9 @@ NS_SWIFT_NAME(Filter)
                               notIn:(nonnull NSArray<id> *)values
     NS_SWIFT_NAME(whereField(_:notIn:));
 
-+ (FIRFilter *)orFilterWithFilters:(NSArray *)filters NS_SWIFT_NAME(orFilter(_:));
++ (FIRFilter *)orFilterWithFilters:(NSArray<FIRFilter *> *)filters NS_SWIFT_NAME(orFilter(_:));
 
-+ (FIRFilter *)andFilterWithFilters:(NSArray *)filters NS_SWIFT_NAME(andFilter(_:));
++ (FIRFilter *)andFilterWithFilters:(NSArray<FIRFilter *> *)filters NS_SWIFT_NAME(andFilter(_:));
 
 @end
 
