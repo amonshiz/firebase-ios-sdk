@@ -97,7 +97,9 @@ load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
 
 grpc_extra_deps()
 
-local_repository(
+http_archive(
     name = "leveldb",
-    path = "../leveldb",
+    sha256 = "702143564337dfb637f0692147e3c61df2a5b3ca06c50a91a4b0336ba1932f15",
+    strip_prefix = "leveldb-05b0320851d87721771f821aac18eb04c8eb7a6b",
+    url = "https://github.com/amonshiz/leveldb/archive/05b0320851d87721771f821aac18eb04c8eb7a6b.tar.gz",
 )
