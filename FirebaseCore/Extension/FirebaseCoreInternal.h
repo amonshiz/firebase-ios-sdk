@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#if BAZEL_BUILD
+#import <FirebaseCore/FirebaseCore.h>
+#else
 @import FirebaseCore;
+#endif
 
 #import "FIRAppInternal.h"
 #import "FIRComponent.h"

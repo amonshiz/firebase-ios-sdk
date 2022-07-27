@@ -14,7 +14,7 @@
 
 import Foundation
 
-#if SWIFT_PACKAGE
+#if SWIFT_PACKAGE || BAZEL_BUILD
   import GoogleUtilities_NSData
 #else
   import GoogleUtilities

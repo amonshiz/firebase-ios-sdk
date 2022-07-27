@@ -38,7 +38,7 @@
 #include "Firestore/core/src/util/config_detected.h"
 #endif
 
-#elif __APPLE__ && (SWIFT_PACKAGE || COCOAPODS)
+#elif __APPLE__ && (SWIFT_PACKAGE || COCOAPODS || BAZEL_BUILD)
 // Swift Package Manager does not support configure-time feature testing and
 // does not support source transformations of any kind so we can't cheat by
 // running a sed command to generate config.h before building.
